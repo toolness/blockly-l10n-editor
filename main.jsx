@@ -1,5 +1,11 @@
 FieldUtils.addToBlocklyBlocks(FIELDS, Blockly);
 
+var LOCALES = [
+  'en'
+];
+var DEFAULT_LOCALE = 'en';
+var LOCALE_XML = {};
+
 var workspace = Blockly.inject('blockly', {
   toolbox: FieldUtils.addToBlocklyToolbox(
     FIELDS,
@@ -44,14 +50,9 @@ function saveWorkspace(workspace) {
   return xml;
 }
 
-function getDefaultWorkspaceXML() {
-  var dom = document.getElementById('default-workspace');
-  return Blockly.Xml.domToPrettyText(dom);
-}
-
 function loadWorkspace(workspace) {
   var xml = window.sessionStorage['workspace_xml'] ||
-            getDefaultWorkspaceXML();
+            LOCALE_XML[DEFAULT_LOCALE];
   workspace.clear();
   if (!xml) return;
   var dom = Blockly.Xml.textToDom(xml);
@@ -108,6 +109,26 @@ function start() {
   render();
 }
 
+function loadLocales(cb) {
+  var localesLeft = LOCALES.length;
+
+  LOCALES.forEach(function(name) {
+    var req = new XMLHttpRequest();
+    var url = 'locale/' + name + '.xml';
+    var handleError = function() {
+      alert("Failed to retrieve " + url);
+    };
+    req.open('GET', url);
+    req.onload = function() {
+      if (req.status != 200) return handleError();
+      LOCALE_XML[name] = req.responseText;
+      if (--localesLeft == 0) cb();
+    };
+    req.onerror = handleError;
+    req.send(null);
+  });
+}
+
 document.getElementById('props').innerHTML = 
   React.renderToStaticMarkup(
     <ul>
@@ -122,4 +143,4 @@ document.getElementById('props').innerHTML =
     </ul>
   );
 
-start();
+loadLocales(start);
