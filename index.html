@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<style>
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+</style>
 <title>Blockly Localization Editor Prototype</title>
+<div class="container">
 <h1>Blockly Localization Editor Prototype</h1>
 <p>Below is a localized message based on the example in the <a target="_blank" href="http://userguide.icu-project.org/formatparse/messages">ICU MessageFormat documentation</a>. You can edit the variables used to generate the message using the controls at the top-right of this page.</p>
 <div id="react" style="border: 1px solid black; padding: 1em; margin: 1em"></div>
@@ -23,6 +30,7 @@
 <p>
   For more information, see the <a href="https://github.com/toolness/blockly-l10n-editor">GitHub project</a>.
 </p>
+</div>
 <xml id="toolbox" style="display: none">
   <block type="text"></block>
   <block type="react_component_print"></block>
