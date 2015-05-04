@@ -1,5 +1,3 @@
-var DEFAULT_XML = '';
-
 var workspace = Blockly.inject('blockly', {
   toolbox: document.getElementById('toolbox')
 });
@@ -72,7 +70,7 @@ workspace.addChangeListener(function() {
 
 function saveWorkspace(workspace) {
   var dom = Blockly.Xml.workspaceToDom(workspace);
-  var xml = Blockly.Xml.domToText(dom);
+  var xml = Blockly.Xml.domToPrettyText(dom);
   try {
     window.sessionStorage['workspace_xml'] = xml;
   } catch (e) {
@@ -80,12 +78,46 @@ function saveWorkspace(workspace) {
   }
 }
 
+function getDefaultWorkspaceXML() {
+  var dom = document.getElementById('default-workspace');
+  return Blockly.Xml.domToPrettyText(dom);
+}
+
 function loadWorkspace(workspace) {
-  var xml = window.sessionStorage['workspace_xml'] || DEFAULT_XML;
+  var xml = window.sessionStorage['workspace_xml'] ||
+            getDefaultWorkspaceXML();
   workspace.clear();
   if (!xml) return;
   var dom = Blockly.Xml.textToDom(xml);
   Blockly.Xml.domToWorkspace(workspace, dom);
 }
 
+function start() {
+  var gui = new dat.GUI();
+  var props = {
+    host: 'Alice',
+    gender_of_host: 'female',
+    num_guests: 0,
+    guest: ''
+  };
+  var render = function() {
+    React.render(
+      <SampleLocalizableComponent {...props}/>,
+      document.getElementById('react')
+    );
+  };
+
+  FIELDS.forEach(function(info) {
+    var args = [props, info.name];
+    if (info.choices)
+      args.push(info.choices);
+    var controller = gui.add.apply(gui, args);
+    controller.onChange(render);
+    controller.title(info.help);
+  });
+
+  render();
+}
+
 loadWorkspace(workspace);
+start();

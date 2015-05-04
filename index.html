@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Blockly Localization Editor</title>
-<div id="react"></div>
-<div id="blockly" style="height: 480px; width: 600px;"></div>
+<h1>Blockly Localization Editor</h1>
+<p>Below is a localized message based on the example in the <a target="_blank" href="http://userguide.icu-project.org/formatparse/messages">ICU MessageFormat documentation</a>.</p>
+<div id="react" style="border: 1px solid black; padding: 1em; margin: 1em"></div>
+<div id="blockly" style="height: 600px; width: 800px;"></div>
 <xml id="toolbox" style="display: none">
   <block type="text"></block>
   <block type="react_component_print"></block>
@@ -17,6 +19,106 @@
   <block type="field_num_guests"></block>
   <block type="field_guest"></block>
 </xml>
+<xml id="default-workspace" style="display: none">
+  <block type="controls_if" id="17" inline="false" x="3" y="13">
+    <mutation else="1"></mutation>
+    <value name="IF0">
+      <block type="logic_compare" id="18" inline="true">
+        <field name="OP">EQ</field>
+        <value name="A">
+          <block type="field_num_guests" id="19"></block>
+        </value>
+        <value name="B">
+          <block type="math_number" id="20">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <statement name="DO0">
+      <block type="react_component_print" id="11" inline="false">
+        <value name="TEXT">
+          <block type="field_host" id="12"></block>
+        </value>
+        <next>
+          <block type="react_component_print" id="21" inline="false">
+            <value name="TEXT">
+              <block type="text" id="22">
+                <field name="TEXT"> does not give a party.</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="ELSE">
+      <block type="controls_if" id="13" inline="false">
+        <value name="IF0">
+          <block type="logic_compare" id="14" inline="true">
+            <field name="OP">EQ</field>
+            <value name="A">
+              <block type="field_gender_of_host" id="15"></block>
+            </value>
+            <value name="B">
+              <block type="text" id="16">
+                <field name="TEXT">female</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="controls_if" id="27" inline="false">
+            <value name="IF0">
+              <block type="logic_compare" id="28" inline="true">
+                <field name="OP">EQ</field>
+                <value name="A">
+                  <block type="field_num_guests" id="29"></block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="30">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="react_component_print" id="31" inline="false">
+                <value name="TEXT">
+                  <block type="field_host" id="32"></block>
+                </value>
+                <next>
+                  <block type="react_component_print" id="33" inline="false">
+                    <value name="TEXT">
+                      <block type="text" id="34">
+                        <field name="TEXT"> invites </field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="react_component_print" id="35" inline="false">
+                        <value name="TEXT">
+                          <block type="field_guest" id="36"></block>
+                        </value>
+                        <next>
+                          <block type="react_component_print" id="37" inline="false">
+                            <value name="TEXT">
+                              <block type="text" id="38">
+                                <field name="TEXT"> to her party.</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
 <script src="react/build/react-with-addons.js"></script>
 <script src="react/build/JSXTransformer.js"></script>
 <script src="google-blockly/blockly_compressed.js"></script>
@@ -24,6 +126,8 @@
 <script src="google-blockly/javascript_compressed.js"></script>
 <script src="google-blockly/msg/js/en.js"></script>
 <script src="underscore.js"></script>
+<script src="dat.gui.js"></script>
+<script src="dat-gui-tooltips.js"></script>
 <script src="fields.js"></script>
 <script src="custom-blocks.js"></script>
 <script type="text/jsx" src="main.jsx"></script>

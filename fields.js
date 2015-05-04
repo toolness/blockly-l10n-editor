@@ -9,6 +9,7 @@ var FIELDS = [
     name: 'gender_of_host',
     type: React.PropTypes.string,
     required: true,
+    choices: ['male', 'female', 'other'],
     help: 'The gender of the party host. Can be "male", "female", or "other".'
   },
   {
