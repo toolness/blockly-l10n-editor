@@ -22,7 +22,7 @@
 
   eachController(function(controller) {
     if (!controller.prototype.hasOwnProperty('title')) {
-      controller.prototype.title = setTitle;
+      controller.prototype.tooltip = setTitle;
     }
   });
 })();

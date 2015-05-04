@@ -86,8 +86,8 @@ var FieldUtils = {
       if (typeof(options.onChange) == 'function') {
         controller.onChange(options.onChange);
       }
-      if (typeof(controller.title) == 'function') {
-        controller.title(info.help);
+      if (typeof(controller.tooltip) == 'function') {
+        controller.tooltip(info.help);
       }
     });
   }
