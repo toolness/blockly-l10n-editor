@@ -105,7 +105,7 @@ document.getElementById('props').innerHTML =
     <ul>
       {FIELDS.map(function(info) {
         return (
-          <li>
+          <li key={info.name}>
             <code>{info.name}</code> &mdash; {info.help}
             {info.required ? " Required." : null}
           </li>
