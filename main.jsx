@@ -86,10 +86,7 @@ function start() {
       Blockly.JavaScript.workspaceToCode(workspace)
     );
     React.render(
-      <textarea value={'var LocalizedComponent = ' + js + ';'} onChange={dummyOnChange} style={{
-        width: '100%',
-        height: '10em'
-      }} spellCheck={false}/>,
+      <textarea value={'var LocalizedComponent = ' + js + ';'} onChange={dummyOnChange} spellCheck={false}/>,
       document.getElementById('react-js')
     );
 
@@ -98,10 +95,7 @@ function start() {
     SampleLocalizableComponent.updateImplementation(component);
     var xml = saveWorkspace(workspace);
     React.render(
-      <textarea value={xml} onChange={dummyOnChange} style={{
-        width: '100%',
-        height: '10em'
-      }} spellCheck={false}/>,
+      <textarea value={xml} onChange={dummyOnChange} spellCheck={false}/>,
       document.getElementById('blockly-xml')
     );
   });
