@@ -18,10 +18,31 @@ h1, h2 {
   margin: 0 auto;
 }
 
-#react {
+#l10n {
   border: 1px solid black;
   padding: 1em;
-  margin: 1em
+}
+
+/* https://css-tricks.com/snippets/css/clear-fix/ */
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+#react {
+  display: inline;
+}
+
+#dat-gui {
+  float: right;
+}
+
+#dat-gui .close-button {
+  display: none;
 }
 
 #blockly {
@@ -32,8 +53,11 @@ h1, h2 {
 <title>Blockly Localization Editor Prototype</title>
 <div class="container">
 <h1>Blockly Localization Editor Prototype</h1>
-<p>Below is a localized message based on the example in the <a target="_blank" href="http://userguide.icu-project.org/formatparse/messages">ICU MessageFormat documentation</a>. You can edit the variables used to generate the message using the controls at the top-right of this page.</p>
-<div id="react"></div>
+<p>Below is a localized message based on the example in the <a target="_blank" href="http://userguide.icu-project.org/formatparse/messages">ICU MessageFormat documentation</a>. You can edit the variables used to generate the message using the controls on the right.</p>
+<div id="l10n" class="clearfix">
+  <div id="dat-gui"></div>
+  <div id="react"></div>
+</div>
 <p>Instead of using ICU, however, we use a simple visual programming language called <a href="https://developers.google.com/blockly/">Blockly</a>. The Blockly code below is dynamically compiled into a <a href="http://facebook.github.io/react/index.html">React</a> component for inclusion in the example above.</p>
 <div id="blockly"></div>
 <h2>Why Blockly?</h2>

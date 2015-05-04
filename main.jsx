@@ -60,7 +60,7 @@ function loadWorkspace(workspace) {
 }
 
 function start() {
-  var gui = new dat.GUI();
+  var gui = new dat.GUI({autoPlace: false});
   var props = {
     host: 'Alice',
     gender_of_host: 'female',
@@ -79,6 +79,7 @@ function start() {
     );
   };
 
+  document.getElementById('dat-gui').appendChild(gui.domElement);
   workspace.addChangeListener(function() {
     var js = generateL10nComponent(
       FIELDS,
