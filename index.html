@@ -6,12 +6,20 @@
 <div id="react" style="border: 1px solid black; padding: 1em; margin: 1em"></div>
 <div id="blockly" style="height: 1800px; width: 800px;"></div>
 <p>The Blockly code above can be used to provide a localization for the example message. It can be statically or dynamically compiled into a <a href="http://facebook.github.io/react/index.html">React</a> component for inclusion in an application.</p>
-<p>The example React component takes the following props:</p>
-<div id="props"></div>
 <h2>Why Blockly?</h2>
 <p>
   Providing localization that feels "native", e.g. which adapts dynamically to pluralization and gender and so on, essentially seems to require writing small computer programs. Localization formats like ICU aren't particularly intuitive to developers or localizers. However, <a href="https://developers.google.com/blockly/">Blockly</a> is nicely suited for allowing non-technical users to create very short programs that compile down to readable JavaScript, which makes it a potential alternative to localization message formats.
 </p>
+<h2>Blockly XML</h2>
+<p>Below is the Blockly XML for the Blockly code above. This intermediate representation is what would go in your source code repository, with a different XML document for each locale.</p>
+<div id="blockly-xml"></div>
+<h2>React Component</h2>
+<p>During a build step&mdash;or dynamically in the browser during development&mdash;the locale-specific Blockly XML is converted into a locale-specific React component, which is then used by the application.</p>
+<p>The example React component takes the following props:</p>
+<div id="props"></div>
+<p>Below is the JS for the Blockly XML above.</p>
+<div id="react-js"></div>
+<h2>More Details</h2>
 <p>
   For more information, see the <a href="https://github.com/toolness/blockly-l10n-editor">GitHub project</a>.
 </p>

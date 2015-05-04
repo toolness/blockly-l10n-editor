@@ -33,18 +33,6 @@ var SampleLocalizableComponent = React.createClass({
   }
 });
 
-workspace.addChangeListener(function() {
-  var componentJs = generateL10nComponent(
-    FIELDS,
-    Blockly.JavaScript.workspaceToCode(workspace)
-  );
-  console.log(componentJs);
-  var component = eval(componentJs);
-
-  SampleLocalizableComponent.updateImplementation(component);
-  saveWorkspace(workspace);
-});
-
 function saveWorkspace(workspace) {
   var dom = Blockly.Xml.workspaceToDom(workspace);
   var xml = Blockly.Xml.domToPrettyText(dom);
@@ -53,6 +41,7 @@ function saveWorkspace(workspace) {
   } catch (e) {
     console.log("Unable to save workspace", e);
   }
+  return xml;
 }
 
 function getDefaultWorkspaceXML() {
@@ -77,6 +66,11 @@ function start() {
     num_guests: 3,
     guest: 'Bob'
   };
+  var dummyOnChange = function() {
+    // We want textarea elements that allow the user to move their
+    // cursor around and select text, which readOnly doesn't provide,
+    // so we'll provide a dummy onChange handler so React doesn't complain.
+  };
   var render = function() {
     React.render(
       <SampleLocalizableComponent {...props}/>,
@@ -84,6 +78,32 @@ function start() {
     );
   };
 
+  workspace.addChangeListener(function() {
+    var js = generateL10nComponent(
+      FIELDS,
+      Blockly.JavaScript.workspaceToCode(workspace)
+    );
+    React.render(
+      <textarea value={'var LocalizedComponent = ' + js + ';'} onChange={dummyOnChange} style={{
+        width: '100%',
+        height: '10em'
+      }} spellCheck={false}/>,
+      document.getElementById('react-js')
+    );
+
+    var component = eval(js);
+
+    SampleLocalizableComponent.updateImplementation(component);
+    var xml = saveWorkspace(workspace);
+    React.render(
+      <textarea value={xml} onChange={dummyOnChange} style={{
+        width: '100%',
+        height: '10em'
+      }} spellCheck={false}/>,
+      document.getElementById('blockly-xml')
+    );
+  });
+  loadWorkspace(workspace);
   FieldUtils.addToDatGUI(FIELDS, props, gui, {onChange: render});
   render();
 }
@@ -102,5 +122,4 @@ document.getElementById('props').innerHTML =
     </ul>
   );
 
-loadWorkspace(workspace);
 start();
