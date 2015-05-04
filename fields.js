@@ -90,7 +90,7 @@ var FieldUtils = {
       };
       Blockly.JavaScript[blockName] = function(block) {
         return [
-          'component.props.' + info.name,
+          'this.props.' + info.name,
           Blockly.JavaScript.ORDER_ATOMIC
         ];
       };

@@ -9,18 +9,16 @@ var workspace = Blockly.inject('blockly', {
 
 var SampleLocalizableComponent = React.createClass({
   mixins: [React.addons.PureRenderMixin],
-  propTypes: FieldUtils.toPropTypes(FIELDS),
   statics: {
     instances: [],
-    updateRenderMethod: function(js) {
-      console.log('updateRenderMethod', js);
+    updateImplementation: function(impl) {
       this.instances.forEach(function(instance) {
-        instance.setState({renderMethod: js});
+        instance.setState({impl: impl});
       });
     }
   },
   getInitialState: function() {
-    return {renderMethod: ''};
+    return {impl: null};
   },
   componentDidMount: function() {
     this.constructor.instances.push(this);
@@ -30,30 +28,20 @@ var SampleLocalizableComponent = React.createClass({
     this.constructor.instances.splice(index, 1);
   },
   render: function() {
-    var children = this.state.renderMethod
-                   ? eval(this.state.renderMethod)(this, [])
-                   : [];
-    return React.createElement(
-      'span',
-      {},
-      children
-    );
+    if (!this.state.impl) return null;
+    return React.createElement(this.state.impl, this.props);
   }
 });
 
 workspace.addChangeListener(function() {
-  var lines = Blockly.JavaScript.workspaceToCode(workspace).split('\n');
-
-  var js = (
-    '(function(component, children) {\n' +
-    lines.map(function(line) {
-      return '  ' + line;
-    }).join('\n') +
-    '\n' + 
-    '  return children;\n' +
-    '})\n'
+  var componentJs = generateL10nComponent(
+    FIELDS,
+    Blockly.JavaScript.workspaceToCode(workspace)
   );
-  SampleLocalizableComponent.updateRenderMethod(js);
+  console.log(componentJs);
+  var component = eval(componentJs);
+
+  SampleLocalizableComponent.updateImplementation(component);
   saveWorkspace(workspace);
 });
 

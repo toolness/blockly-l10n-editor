@@ -14,5 +14,5 @@ Blockly.Blocks['react_component_print'] = {
 Blockly.JavaScript['react_component_print'] = function(block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'TEXT',
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
-  return 'children.push(' + argument0 + ');\n';
+  return 'c.push(' + argument0 + ');\n';
 };
