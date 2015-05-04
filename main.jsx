@@ -1,18 +1,15 @@
-var toolbox = document.getElementById('toolbox');
-
-FIELDS.forEach(function(info) {
-  var el = document.createElement('block');
-  el.setAttribute('type', blockNameForField(info.name));
-  toolbox.appendChild(el);
-});
+FieldUtils.addToBlocklyBlocks(FIELDS, Blockly);
 
 var workspace = Blockly.inject('blockly', {
-  toolbox: toolbox
+  toolbox: FieldUtils.addToBlocklyToolbox(
+    FIELDS,
+    document.getElementById('toolbox')
+  )
 });
 
 var SampleLocalizableComponent = React.createClass({
   mixins: [React.addons.PureRenderMixin],
-  propTypes: fieldsToPropTypes(FIELDS),
+  propTypes: FieldUtils.toPropTypes(FIELDS),
   statics: {
     instances: [],
     updateRenderMethod: function(js) {
@@ -100,20 +97,8 @@ function loadWorkspace(workspace) {
   Blockly.Xml.domToWorkspace(workspace, dom);
 }
 
-function buildDatGUI(fields, props, onChange) {
-  var gui = new dat.GUI();
-
-  fields.forEach(function(info) {
-    var args = [props, info.name];
-    if (info.choices)
-      args.push(info.choices);
-    var controller = gui.add.apply(gui, args);
-    controller.onChange(onChange);
-    controller.title(info.help);
-  });
-}
-
 function start() {
+  var gui = new dat.GUI();
   var props = {
     host: 'Alice',
     gender_of_host: 'female',
@@ -127,7 +112,7 @@ function start() {
     );
   };
 
-  buildDatGUI(FIELDS, props, render);
+  FieldUtils.addToDatGUI(FIELDS, props, gui, {onChange: render});
   render();
 }
 

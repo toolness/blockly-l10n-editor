@@ -1,7 +1,3 @@
-function blockNameForField(name) {
-  return 'field_' + name;
-}
-
 Blockly.Blocks['react_component_print'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
@@ -20,26 +16,3 @@ Blockly.JavaScript['react_component_print'] = function(block) {
       Blockly.JavaScript.ORDER_NONE) || '\'\'';
   return 'children.push(' + argument0 + ');\n';
 };
-
-FIELDS.forEach(function(info) {
-  var blockName = blockNameForField(info.name);
-  Blockly.Blocks[blockName] = {
-    init: function() {
-      this.appendDummyInput().appendField(info.name);
-      if (info.type === React.PropTypes.number) {
-        this.setOutput(true, 'Number');
-      } else if (info.type === React.PropTypes.string) {
-        this.setOutput(true, 'String');
-      } else {
-        throw new Error("Don't know how to set output for " + info.name);
-      }
-      this.setTooltip(info.help);
-    }
-  };
-  Blockly.JavaScript[blockName] = function(block) {
-    return [
-      'component.props.' + info.name,
-      Blockly.JavaScript.ORDER_ATOMIC
-    ];
-  };
-});
