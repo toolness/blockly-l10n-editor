@@ -86,8 +86,8 @@ function start() {
   var props = {
     host: 'Alice',
     gender_of_host: 'female',
-    num_guests: 0,
-    guest: ''
+    num_guests: 3,
+    guest: 'Bob'
   };
   var render = function() {
     React.render(
