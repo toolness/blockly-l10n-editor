@@ -92,8 +92,20 @@ function loadWorkspace(workspace) {
   Blockly.Xml.domToWorkspace(workspace, dom);
 }
 
-function start() {
+function buildDatGUI(fields, props, onChange) {
   var gui = new dat.GUI();
+
+  fields.forEach(function(info) {
+    var args = [props, info.name];
+    if (info.choices)
+      args.push(info.choices);
+    var controller = gui.add.apply(gui, args);
+    controller.onChange(onChange);
+    controller.title(info.help);
+  });
+}
+
+function start() {
   var props = {
     host: 'Alice',
     gender_of_host: 'female',
@@ -107,15 +119,7 @@ function start() {
     );
   };
 
-  FIELDS.forEach(function(info) {
-    var args = [props, info.name];
-    if (info.choices)
-      args.push(info.choices);
-    var controller = gui.add.apply(gui, args);
-    controller.onChange(render);
-    controller.title(info.help);
-  });
-
+  buildDatGUI(FIELDS, props, render);
   render();
 }
 
