@@ -47,15 +47,20 @@ var FieldUtils = {
 
     return result;
   },
+  toPropTypesJs: function(fields) {
+    var lines = fields.map(function(info) {
+      return '  ' + info.name + ': ' + this.toPropTypeReactString(info)
+    }, this);
+    return '{\n' + lines.join(',\n') + '\n}';
+  },
   toPropTypes: function(fields) {
-    var propTypes = {};
+    var propTypes = eval('(' + this.toPropTypesJs(fields) + ')');
 
     fields.forEach(function(info) {
-      propTypes[info.name] = eval(this.toPropTypeReactString(info));
       if (typeof(propTypes[info.name]) == 'undefined') {
         throw new Error('prop type for ' + info.name + ' is invalid');
       }
-    }, this);
+    });
 
     return propTypes;
   },
