@@ -1,3 +1,7 @@
+function blockNameForField(name) {
+  return 'field_' + name;
+}
+
 Blockly.Blocks['react_component_print'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
@@ -18,7 +22,7 @@ Blockly.JavaScript['react_component_print'] = function(block) {
 };
 
 FIELDS.forEach(function(info) {
-  var blockName = 'field_' + info.name;
+  var blockName = blockNameForField(info.name);
   Blockly.Blocks[blockName] = {
     init: function() {
       this.appendDummyInput().appendField(info.name);

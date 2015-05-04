@@ -1,5 +1,13 @@
+var toolbox = document.getElementById('toolbox');
+
+FIELDS.forEach(function(info) {
+  var el = document.createElement('block');
+  el.setAttribute('type', blockNameForField(info.name));
+  toolbox.appendChild(el);
+});
+
 var workspace = Blockly.inject('blockly', {
-  toolbox: document.getElementById('toolbox')
+  toolbox: toolbox
 });
 
 var SampleLocalizableComponent = React.createClass({
