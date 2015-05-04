@@ -4,18 +4,26 @@
 <div id="react"></div>
 <div id="blockly" style="height: 480px; width: 600px;"></div>
 <xml id="toolbox" style="display: none">
+  <block type="text"></block>
+  <block type="react_component_print"></block>
   <block type="controls_if"></block>
   <block type="logic_compare"></block>
   <block type="math_number"></block>
   <block type="math_arithmetic"></block>
-  <block type="text"></block>
-  <block type="text_print"></block>
+
+  <!-- TODO: These should be dynamically generated. -->
+  <block type="field_host"></block>
+  <block type="field_gender_of_host"></block>
+  <block type="field_num_guests"></block>
+  <block type="field_guest"></block>
 </xml>
-<script src="react/build/react.js"></script>
+<script src="react/build/react-with-addons.js"></script>
 <script src="react/build/JSXTransformer.js"></script>
 <script src="google-blockly/blockly_compressed.js"></script>
 <script src="google-blockly/blocks_compressed.js"></script>
 <script src="google-blockly/javascript_compressed.js"></script>
 <script src="google-blockly/msg/js/en.js"></script>
 <script src="underscore.js"></script>
+<script src="fields.js"></script>
+<script src="custom-blocks.js"></script>
 <script type="text/jsx" src="main.jsx"></script>
