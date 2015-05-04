@@ -100,5 +100,19 @@ function start() {
   render();
 }
 
+document.getElementById('props').innerHTML = 
+  React.renderToStaticMarkup(
+    <ul>
+      {FIELDS.map(function(info) {
+        return (
+          <li>
+            <code>{info.name}</code> &mdash; {info.help}
+            {info.required ? " Required." : null}
+          </li>
+        );
+      })}
+    </ul>
+  );
+
 loadWorkspace(workspace);
 start();
