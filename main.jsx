@@ -41,22 +41,6 @@ var SampleLocalizableComponent = React.createClass({
   }
 });
 
-var Main = React.createClass({
-  render: function() {
-    return (
-      <div>
-        <h1>Hi.</h1>
-        <SampleLocalizableComponent host="Alice" gender_of_host="female" num_guests={0}/>
-      </div>
-    );
-  }
-});
-
-React.render(
-  <Main/>,
-  document.getElementById('react')
-);
-
 workspace.addChangeListener(function() {
   var lines = Blockly.JavaScript.workspaceToCode(workspace).split('\n');
 
